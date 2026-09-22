@@ -2,9 +2,12 @@ import { useEffect, useRef, useState } from 'react'
 import { setState, useStore } from '../lib/store'
 import { startAudio, tick } from '../lib/audio'
 
+const HEADLINE = ['Eight things I built,', 'and the part of each', 'that was hard.']
+
 /**
- * The surface. Nothing scrolls until the visitor chooses how to go under, which is also
- * the only moment audio is ever offered.
+ * The surface. Composition is left-set at the measured hero inset rather than a centred
+ * stack, with the instrument labels pinned to the corners of a hairline frame. The name
+ * is a label here; the claim is the headline.
  */
 export function Gate() {
   const phase = useStore((s) => s.phase)
@@ -30,35 +33,45 @@ export function Gate() {
 
   return (
     <div className={`gate${leaving ? ' is-leaving' : ''}`}>
-      <div className="gate__inner">
-        <p className="mono gate__coords">11&deg;22.4&prime;N&nbsp;&nbsp;142&deg;35.5&prime;E</p>
+      <div className="frame" aria-hidden="true">
+        <span className="frame__grid" />
+        <span className="frame__box" />
+        <i className="frame__tick frame__tick--tl" />
+        <i className="frame__tick frame__tick--tr" />
+        <i className="frame__tick frame__tick--bl" />
+        <i className="frame__tick frame__tick--br" />
+      </div>
 
-        <h1 className="gate__mark">
-          {'ShrimpScript'.split('').map((c, i) => (
-            <span key={i} style={{ '--i': i } as React.CSSProperties}>
-              {c}
-            </span>
-          ))}
-        </h1>
+      <div className="gate__layout">
+        <p className="mono gate__id">ShrimpScript</p>
+        <p className="mono gate__coord">11&deg;22.4&prime;N&ensp;142&deg;35.5&prime;E</p>
 
-        <p className="gate__lede">
-          Eight structures, logged between the surface
-          <br />
-          and the floor of the trench.
-        </p>
+        <div className="gate__body">
+          <h1 className="gate__head">
+            {HEADLINE.map((line, i) => (
+              <span className="gate__line" key={line}>
+                <span style={{ '--i': i } as React.CSSProperties}>{line}</span>
+              </span>
+            ))}
+          </h1>
 
-        <div className="gate__choice">
-          <button ref={first} className="gate__btn" onClick={() => enter(true)}>
-            <span>Descend with sound</span>
-          </button>
-          <button className="gate__btn gate__btn--quiet" onClick={() => enter(false)}>
-            <span>Descend in silence</span>
-          </button>
+          <p className="gate__sub">
+            A descent from the surface to the floor of the Mariana Trench.
+            Everything you pass on the way is running code.
+          </p>
+
+          <div className="gate__choice">
+            <button ref={first} className="btn btn--solid" onClick={() => enter(true)}>
+              Descend with sound
+            </button>
+            <button className="btn" onClick={() => enter(false)}>
+              Descend in silence
+            </button>
+          </div>
         </div>
 
-        <p className="mono gate__foot">
-          10,935 metres to the floor &middot; scroll to descend
-        </p>
+        <p className="mono gate__foot">0 m &middot; surface</p>
+        <p className="mono gate__floor">10,935 m to the floor</p>
       </div>
 
       <div className="gate__waterline" aria-hidden="true" />

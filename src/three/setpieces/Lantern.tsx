@@ -17,7 +17,7 @@ export function Lantern({ project, prox }: PieceProps) {
   const mats = useMemo(
     () => ({
       hull: hullMaterial('#243642'),
-      glow: glowMaterial(project.color, 3.1),
+      glow: glowMaterial(project.color, 1.5),
       wire: wireMaterial(project.color, 0.4),
     }),
     [project.color],

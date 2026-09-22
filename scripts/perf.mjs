@@ -28,7 +28,7 @@ console.log('gpu:', await page.evaluate(() => {
   return i ? gl.getParameter(i.UNMASKED_RENDERER_WEBGL) : 'unknown'
 }))
 
-await page.evaluate(() => [...document.querySelectorAll('.gate__btn')].find(b=>b.textContent.includes('silence')).click())
+await page.evaluate(() => [...document.querySelectorAll('.gate .btn')].find(b=>b.textContent.includes('silence')).click())
 await wait(2200)
 console.log('canvas:', await page.evaluate(() => {
   const c = document.querySelector('canvas')

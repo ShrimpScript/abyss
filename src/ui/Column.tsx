@@ -92,24 +92,31 @@ function Plate({ project }: { project: Project }) {
           <p>{project.hard}</p>
         </div>
 
-        <footer className="plate__foot">
-          <ul className="plate__stack mono">
-            {project.stack.map((s) => (
-              <li key={s}>{s}</li>
-            ))}
-          </ul>
-          <div className="plate__links">
-            {project.links.map((l) => (
-              <a key={l.href} href={l.href} target="_blank" rel="noreferrer noopener">
-                {l.label}
-                <svg viewBox="0 0 12 12" aria-hidden="true">
-                  <path d="M3 9L9 3M9 3H4.5M9 3v4.5" fill="none" stroke="currentColor" strokeWidth="1.1" />
-                </svg>
-              </a>
-            ))}
-            <span className="mono plate__meta">{project.meta}</span>
+        <dl className="spec mono">
+          <div className="spec__row">
+            <dt>Stack</dt>
+            <dd>{project.stack.join(' \u00b7 ')}</dd>
           </div>
-        </footer>
+          <div className="spec__row">
+            <dt>Status</dt>
+            <dd>{project.meta}</dd>
+          </div>
+          {project.links.length > 0 && (
+            <div className="spec__row">
+              <dt>Source</dt>
+              <dd className="spec__links">
+                {project.links.map((l) => (
+                  <a key={l.href} href={l.href} target="_blank" rel="noreferrer noopener">
+                    {l.label}
+                    <svg viewBox="0 0 12 12" aria-hidden="true">
+                      <path d="M3 9L9 3M9 3H4.5M9 3v4.5" fill="none" stroke="currentColor" strokeWidth="1.2" />
+                    </svg>
+                  </a>
+                ))}
+              </dd>
+            </div>
+          )}
+        </dl>
       </div>
     </article>
   )
@@ -120,9 +127,9 @@ function Intro() {
     <div className="intro" style={atBeat('intro')}>
       <span className="mono intro__label">The log</span>
       <h2 className="intro__head">
-        Eight things I built, and the
+        Mostly systems work,
         <br />
-        part of each that was hard.
+        and mostly for myself.
       </h2>
       <p className="intro__body">
         An engine that puts three coding agents on one brain. A Minecraft launcher in 4.9
@@ -153,21 +160,32 @@ function Floor() {
   const { ref, shown } = useLampReveal('floor')
   return (
     <div ref={ref} className={`floor${shown ? ' is-lit' : ''}`} style={atBeat('floor')}>
-      <span className="mono floor__depth">10,935 m &middot; Challenger Deep</span>
+      <div className="floor__lede">
+        <span className="mono floor__depth">10,935 m &middot; Challenger Deep</span>
       <h2 className="floor__head">The floor.</h2>
       <p className="floor__body">
         Nothing below this but sediment. Everything above it is on GitHub, or close enough
         to it that asking will get you the rest.
       </p>
 
-      <a
-        className="floor__cta"
-        href="https://github.com/ShrimpScript"
-        target="_blank"
-        rel="noreferrer noopener"
-      >
-        github.com/ShrimpScript
-      </a>
+        <a
+          className="floor__cta"
+          href="https://github.com/ShrimpScript"
+          target="_blank"
+          rel="noreferrer noopener"
+        >
+          github.com/ShrimpScript
+        </a>
+
+        <div className="floor__end">
+          <button className="btn" onClick={() => warpTo(0)}>
+            Return to the surface
+          </button>
+          <p className="mono floor__keys">
+            Type any name to go back to it &middot; Esc surfaces
+          </p>
+        </div>
+      </div>
 
       <ol className="floor__index mono">
         {PROJECTS.map((p) => (
@@ -181,14 +199,6 @@ function Floor() {
           </li>
         ))}
       </ol>
-
-      <button className="floor__surface mono" onClick={() => warpTo(0)}>
-        Return to the surface
-      </button>
-
-      <p className="mono floor__keys">
-        Type any name to go back to it &middot; Esc surfaces
-      </p>
     </div>
   )
 }

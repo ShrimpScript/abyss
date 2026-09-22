@@ -19,7 +19,7 @@ console.log('webgl support:', await page.evaluate(() => {
            style: c ? getComputedStyle(c).opacity + ' z' + getComputedStyle(c).zIndex : null }
 }))
 
-await page.evaluate(() => [...document.querySelectorAll('.gate__btn')].find(b=>b.textContent.includes('silence')).click())
+await page.evaluate(() => [...document.querySelectorAll('.gate .btn')].find(b=>b.textContent.includes('silence')).click())
 await wait(2500)
 
 const data = await page.evaluate(() => document.querySelector('canvas').toDataURL('image/png'))

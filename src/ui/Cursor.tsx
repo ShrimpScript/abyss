@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { FINE_POINTER } from '../lib/store'
 
 /**
@@ -5,7 +6,17 @@ import { FINE_POINTER } from '../lib/store'
  * so it never costs a React render.
  */
 export function Cursor() {
-  if (!FINE_POINTER) return null
+  const [seen, setSeen] = useState(false)
+
+  useEffect(() => {
+    if (!FINE_POINTER) return
+    const on = () => setSeen(true)
+    window.addEventListener('pointermove', on, { once: true, passive: true })
+    return () => window.removeEventListener('pointermove', on)
+  }, [])
+
+  // Until the pointer has moved once it would sit at the origin, as a ring in the corner.
+  if (!FINE_POINTER || !seen) return null
   return (
     <div className="cursor" aria-hidden="true">
       <span className="cursor__ring" />

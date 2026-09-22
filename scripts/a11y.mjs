@@ -15,7 +15,7 @@ const browser = await puppeteer.launch({
   page.on('pageerror', (e) => console.log('REDUCED pageerror:', e.message))
   await page.goto('http://localhost:4180/?probe', { waitUntil: 'networkidle2' })
   await wait(2000)
-  await page.evaluate(() => [...document.querySelectorAll('.gate__btn')].find(b=>b.textContent.includes('silence')).click())
+  await page.evaluate(() => [...document.querySelectorAll('.gate .btn')].find(b=>b.textContent.includes('silence')).click())
   await wait(1800)
   await page.evaluate(() => { window.location.hash = 'd=5400' })
   await wait(2000)

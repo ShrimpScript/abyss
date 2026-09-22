@@ -51,9 +51,9 @@ export function Hud() {
   return (
     <div className="hud">
       <div className="hud__top">
-        <button className="hud__mark" onClick={() => warpTo(0)}>
+        <button className="hud__mark mono" onClick={() => warpTo(0)}>
           ShrimpScript
-          <span className="mono hud__mark-sub">Surface</span>
+          <span className="hud__mark-sub">Surface</span>
         </button>
 
         <button className="hud__sound mono" onClick={toggleSound} aria-pressed={sound}>

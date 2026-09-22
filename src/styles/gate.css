@@ -1,17 +1,60 @@
+/* ---------- the hairline frame, borrowed from technical drawing ---------- */
+
+.frame {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.frame__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, rgb(242 245 247 / 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(242 245 247 / 0.03) 1px, transparent 1px);
+  background-size: 96px 96px;
+  -webkit-mask-image: radial-gradient(ellipse 78% 68% at 42% 50%, #000 12%, transparent 76%);
+  mask-image: radial-gradient(ellipse 78% 68% at 42% 50%, #000 12%, transparent 76%);
+}
+
+.frame__box {
+  position: absolute;
+  inset: var(--gutter);
+  border: 1px solid rgb(242 245 247 / 0.07);
+}
+
+.frame__tick {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  border: 0 solid rgb(242 245 247 / 0.34);
+}
+
+.frame__tick--tl { top: calc(var(--gutter) - 1px); left: calc(var(--gutter) - 1px); border-top-width: 1px; border-left-width: 1px; }
+.frame__tick--tr { top: calc(var(--gutter) - 1px); right: calc(var(--gutter) - 1px); border-top-width: 1px; border-right-width: 1px; }
+.frame__tick--bl { bottom: calc(var(--gutter) - 1px); left: calc(var(--gutter) - 1px); border-bottom-width: 1px; border-left-width: 1px; }
+.frame__tick--br { bottom: calc(var(--gutter) - 1px); right: calc(var(--gutter) - 1px); border-bottom-width: 1px; border-right-width: 1px; }
+
+/* ---------- gate ---------- */
+
 .gate {
   position: fixed;
   inset: 0;
   z-index: 10;
-  display: grid;
-  place-items: center;
-  padding: var(--gutter);
-  text-align: center;
-  background: radial-gradient(
-    ellipse 70% 55% at 50% 46%,
-    rgb(0 10 16 / 0.62) 0%,
-    rgb(0 8 14 / 0.34) 48%,
-    transparent 78%
-  );
+  background:
+    radial-gradient(
+      ellipse 74% 58% at 34% 56%,
+      rgb(0 9 15 / 0.5) 0%,
+      rgb(0 7 12 / 0.26) 48%,
+      transparent 80%
+    ),
+    linear-gradient(
+      to bottom,
+      rgb(140 226 232 / 0.07) 0%,
+      transparent 26%,
+      rgb(0 8 14 / 0.42) 74%,
+      rgb(0 5 10 / 0.72) 100%
+    );
   transition: opacity 900ms var(--in), filter 900ms var(--in);
 }
 
@@ -21,133 +64,135 @@
   pointer-events: none;
 }
 
-.gate.is-leaving .gate__inner {
-  transform: translateY(-3vh) scale(1.06);
+.gate.is-leaving .gate__body {
+  transform: translateY(-2.5vh);
 }
 
-.gate__inner {
-  max-width: 44rem;
+.gate__layout {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  padding: calc(var(--gutter) + 1.4rem) calc(var(--gutter) + 1.4rem);
+}
+
+.gate__id,
+.gate__coord,
+.gate__foot,
+.gate__floor {
+  margin: 0;
+  font-size: var(--t-11);
+  letter-spacing: 0.2em;
+  color: var(--ink-2);
+  animation: fade-up 900ms var(--out) backwards 200ms;
+}
+
+.gate__id { grid-area: 1 / 1; color: var(--ink-0); }
+.gate__coord { grid-area: 1 / 2; text-align: right; animation-delay: 280ms; }
+.gate__foot { grid-area: 3 / 1; align-self: end; animation-delay: 1500ms; }
+.gate__floor { grid-area: 3 / 2; align-self: end; text-align: right; animation-delay: 1560ms; }
+
+.gate__body {
+  grid-area: 2 / 1 / 3 / 3;
+  align-self: center;
+  /* Left-set at the inset measured off the reference hero, not centred. */
+  padding-left: calc(var(--hero-inset) - var(--gutter) - 1.4rem);
+  max-width: 62rem;
   transition: transform 1000ms var(--in);
 }
 
-.gate__coords {
-  margin: 0 0 clamp(2rem, 6vh, 4rem);
-  /* Sits on lit water, not on the abyss, so it needs its own value. */
-  color: rgb(224 246 250 / 0.62);
-  animation: fade-up 900ms var(--out) backwards 120ms;
-}
-
-.gate__mark {
+.gate__head {
   margin: 0;
   font-family: var(--display);
   font-weight: 500;
-  font-size: var(--t-96);
-  line-height: 0.92;
-  letter-spacing: -0.015em;
-  color: var(--bone);
-  text-wrap: balance;
+  font-size: var(--t-hero);
+  line-height: 1.04;
+  letter-spacing: -0.022em;
+  color: var(--ink-0);
 }
 
-.gate__mark span {
-  display: inline-block;
-  animation: letter-surface 1200ms var(--out) backwards;
-  animation-delay: calc(var(--i) * 42ms + 260ms);
+/* Each line wipes up from its own mask, which reads as one deliberate move. */
+.gate__line {
+  display: block;
+  overflow: hidden;
 }
 
-@keyframes letter-surface {
+.gate__line > span {
+  display: block;
+  animation: line-rise 1100ms var(--out) backwards;
+  animation-delay: calc(var(--i) * 110ms + 420ms);
+}
+
+@keyframes line-rise {
   from {
+    transform: translateY(105%);
     opacity: 0;
-    transform: translateY(0.42em) scaleY(1.3);
-    filter: blur(10px);
   }
   to {
-    opacity: 1;
     transform: none;
-    filter: blur(0);
+    opacity: 1;
   }
 }
 
-.gate__lede {
-  margin: 1.4rem auto 0;
-  max-width: 30rem;
+.gate__sub {
+  margin: 1.6rem 0 0;
+  max-width: 34rem;
   font-size: var(--t-19);
   font-weight: 300;
-  line-height: 1.55;
-  color: rgb(232 248 252 / 0.82);
-  animation: fade-up 900ms var(--out) backwards 900ms;
+  line-height: 1.52;
+  color: var(--ink-1);
+  animation: fade-up 900ms var(--out) backwards 980ms;
 }
 
 .gate__choice {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.75rem;
-  justify-content: center;
-  margin-top: clamp(2rem, 5vh, 3.25rem);
-  animation: fade-up 900ms var(--out) backwards 1150ms;
+  gap: 0.6rem;
+  margin-top: 2.4rem;
+  animation: fade-up 900ms var(--out) backwards 1180ms;
 }
 
-.gate__btn {
+/* ---------- buttons ---------- */
+
+.btn {
   position: relative;
   overflow: hidden;
   appearance: none;
-  min-height: 48px;
-  padding: 0.85rem 1.6rem;
-  border: 1px solid rgb(95 251 241 / 0.4);
-  border-radius: 2px;
+  min-height: 46px;
+  padding: 0 1.15rem;
+  border: 1px solid var(--line);
+  border-radius: 3px;
   background: transparent;
-  color: var(--bone);
+  color: var(--ink-1);
   font-family: var(--mono);
   font-size: var(--t-12);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
+  letter-spacing: 0.06em;
   cursor: pointer;
-  transition: border-color var(--base) var(--out), color var(--base) var(--out);
+  transition:
+    border-color var(--base) var(--out),
+    color var(--base) var(--out),
+    background var(--base) var(--out);
 }
 
-.gate__btn span {
-  position: relative;
-  z-index: 1;
+.btn:hover,
+.btn:focus-visible {
+  border-color: rgb(242 245 247 / 0.45);
+  color: var(--ink-0);
 }
 
-.gate__btn::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: var(--biolum);
-  transform: translateY(101%);
-  transition: transform var(--base) var(--out);
+.btn--solid {
+  border-color: var(--ink-0);
+  background: var(--ink-0);
+  color: #04141a;
 }
 
-.gate__btn:hover,
-.gate__btn:focus-visible {
-  border-color: var(--biolum);
-  color: #00171b;
-}
-
-.gate__btn:hover::before,
-.gate__btn:focus-visible::before {
-  transform: translateY(0);
-}
-
-.gate__btn--quiet {
-  border-color: rgb(224 246 250 / 0.45);
-  color: rgb(232 248 252 / 0.9);
-}
-
-.gate__btn--quiet::before {
-  background: var(--bone-dim);
-}
-
-.gate__btn--quiet:hover,
-.gate__btn--quiet:focus-visible {
-  border-color: var(--bone-dim);
-  color: #04121f;
-}
-
-.gate__foot {
-  margin: clamp(2rem, 5vh, 3rem) 0 0;
-  color: rgb(224 246 250 / 0.62);
-  animation: fade-up 900ms var(--out) backwards 1400ms;
+.btn--solid:hover,
+.btn--solid:focus-visible {
+  border-color: #fff;
+  background: #fff;
+  color: #04141a;
 }
 
 /* The water closing over the visitor. */
@@ -171,18 +216,33 @@
 }
 
 @keyframes waterline {
-  to {
-    top: 100vh;
-  }
+  to { top: 100vh; }
 }
 
 @keyframes fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 620px) {
+  .gate__layout {
+    padding: calc(var(--gutter) + 0.9rem);
   }
-  to {
-    opacity: 1;
-    transform: none;
+  .gate__body {
+    padding-left: 0;
+  }
+  .gate__sub {
+    font-size: var(--t-16);
+  }
+  .gate__choice {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .gate__coord {
+    display: none;
+  }
+  .gate__foot,
+  .gate__floor {
+    letter-spacing: 0.12em;
   }
 }

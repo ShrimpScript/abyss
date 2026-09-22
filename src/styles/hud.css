@@ -29,11 +29,9 @@
   padding: 0.25rem 0;
   border: 0;
   background: none;
-  color: var(--bone);
-  font-family: var(--display);
-  font-size: var(--t-19);
-  font-weight: 500;
-  letter-spacing: 0.01em;
+  color: var(--ink-0);
+  font-size: var(--t-11);
+  letter-spacing: 0.2em;
   line-height: 1;
   cursor: pointer;
   transition: opacity var(--base) var(--out);
@@ -44,9 +42,9 @@
 }
 
 .hud__mark-sub {
-  font-size: 0.625rem;
+  font-size: 0.5625rem;
   letter-spacing: 0.22em;
-  color: var(--bone-faint);
+  color: var(--ink-2);
 }
 
 .hud__sound {
@@ -55,18 +53,18 @@
   gap: 0.6rem;
   min-height: 44px;
   padding: 0 0.75rem;
-  border: 1px solid rgb(139 163 176 / 0.22);
+  border: 1px solid rgb(185 192 196 / 0.22);
   border-radius: 2px;
   background: rgb(1 8 14 / 0.4);
   backdrop-filter: blur(8px);
-  color: var(--bone-dim);
+  color: var(--ink-2);
   cursor: pointer;
   transition: border-color var(--base) var(--out), color var(--base) var(--out);
 }
 
 .hud__sound:hover {
   border-color: rgb(95 251 241 / 0.5);
-  color: var(--bone);
+  color: var(--ink-0);
 }
 
 .hud__wave {
@@ -127,7 +125,7 @@
   font-family: var(--display);
   font-size: var(--t-24);
   font-weight: 400;
-  color: var(--bone);
+  color: var(--ink-0);
   opacity: 0.86;
 }
 
@@ -136,7 +134,7 @@
   font-size: 0.625rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--bone-faint);
+  color: var(--ink-2);
 }
 
 /* ---------- depth gauge ---------- */
@@ -162,20 +160,20 @@
 
 .hud__depth-value {
   font-size: clamp(2.2rem, 5vw, 3.1rem);
-  color: var(--bone);
+  color: var(--ink-0);
   letter-spacing: -0.02em;
 }
 
 .hud__depth-unit {
   font-size: var(--t-14);
-  color: var(--bone-faint);
+  color: var(--ink-2);
   letter-spacing: 0.1em;
 }
 
 .hud__bar {
   position: relative;
   height: 1px;
-  background: rgb(139 163 176 / 0.2);
+  background: rgb(185 192 196 / 0.2);
   overflow: hidden;
 }
 
@@ -202,14 +200,14 @@
 .hud__readouts dt {
   font-size: 0.5625rem;
   letter-spacing: 0.22em;
-  color: var(--bone-faint);
+  color: var(--ink-2);
 }
 
 .hud__readouts dd {
   margin: 0;
   font-size: var(--t-12);
   letter-spacing: 0.08em;
-  color: var(--bone-dim);
+  color: var(--ink-2);
   text-transform: none;
 }
 

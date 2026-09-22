@@ -22,10 +22,9 @@
 
 .intro {
   position: absolute;
-  left: 50%;
-  translate: -50% -50%;
-  width: min(38rem, calc(100vw - var(--gutter) * 2));
-  text-align: center;
+  left: var(--hero-inset);
+  translate: 0 -50%;
+  width: min(34rem, calc(100vw - var(--hero-inset) - 5rem));
 }
 
 .intro__label {
@@ -46,16 +45,16 @@
 }
 
 .intro__body {
-  margin: 1.5rem auto 0;
+  margin: 1.5rem 0 0;
   max-width: 30rem;
   font-size: var(--t-19);
   font-weight: 300;
-  color: var(--bone-dim);
+  color: var(--ink-2);
 }
 
 .intro__hint {
   margin-top: 3rem;
-  color: var(--bone-faint);
+  color: var(--ink-2);
   animation: hint-pulse 3s ease-in-out infinite;
 }
 
@@ -80,7 +79,7 @@
 
 .marker__depth {
   display: block;
-  color: var(--bone-faint);
+  color: var(--ink-2);
   font-variant-numeric: tabular-nums;
 }
 
@@ -91,7 +90,7 @@
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.01em;
-  color: var(--bone);
+  color: var(--ink-0);
 }
 
 .marker__latin {
@@ -109,7 +108,7 @@
   font-size: var(--t-16);
   font-weight: 300;
   font-style: italic;
-  color: var(--bone-dim);
+  color: var(--ink-2);
 }
 
 /* ---------- the lamp handover ---------- */
@@ -128,7 +127,7 @@
   font-size: var(--t-24);
   font-weight: 400;
   line-height: 1.34;
-  color: var(--bone);
+  color: var(--ink-0);
   text-wrap: balance;
 }
 
@@ -165,24 +164,13 @@
 .plate__frame {
   position: relative;
   padding: clamp(1.5rem, 3vw, 2.25rem);
-  border: 1px solid color-mix(in srgb, var(--c) 26%, transparent);
+  border: 1px solid var(--line);
   background: linear-gradient(
     150deg,
     rgb(4 14 22 / 0.82),
     rgb(1 6 12 / 0.9)
   );
   backdrop-filter: blur(14px) saturate(1.1);
-}
-
-/* Engraved corner ticks, as on a plate in a field guide. */
-.plate__frame::before,
-.plate__frame::after {
-  content: '';
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border: 1px solid var(--c);
-  opacity: 0.55;
 }
 
 .plate__frame::before {
@@ -205,7 +193,7 @@
   justify-content: space-between;
   gap: 1rem;
   padding-bottom: 0.9rem;
-  border-bottom: 1px solid color-mix(in srgb, var(--c) 18%, transparent);
+  border-bottom: 1px solid var(--line);
 }
 
 .plate__spec {
@@ -217,7 +205,7 @@
 .plate__depth {
   font-size: 0.5625rem;
   letter-spacing: 0.18em;
-  color: var(--bone-faint);
+  color: var(--ink-2);
   font-variant-numeric: tabular-nums;
 }
 
@@ -228,7 +216,7 @@
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.02em;
-  color: var(--bone);
+  color: var(--ink-0);
 }
 
 .plate__tagline {
@@ -237,118 +225,126 @@
   font-style: italic;
   font-weight: 300;
   line-height: 1.4;
-  color: color-mix(in srgb, var(--c) 62%, var(--bone));
+  color: var(--ink-0);
   text-wrap: balance;
 }
 
 .plate__body {
-  margin: 1.1rem 0 0;
+  margin: 0.95rem 0 0;
   font-size: var(--t-16);
   font-weight: 300;
-  color: var(--bone-dim);
+  color: var(--ink-2);
 }
 
 .plate__hard {
-  margin-top: 1.4rem;
+  margin-top: 1.15rem;
   padding-left: 1rem;
-  border-left: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
+  border-left: 1px solid var(--line);
 }
 
 .plate__hard-label {
   display: block;
   margin-bottom: 0.4rem;
   font-size: 0.5rem;
-  letter-spacing: 0.26em;
-  color: var(--c);
-  opacity: 0.85;
+  letter-spacing: 0.18em;
+  color: var(--ink-2);
 }
 
 .plate__hard p {
   margin: 0;
   font-size: var(--t-14);
   line-height: 1.62;
-  color: var(--bone-dim);
+  color: var(--ink-2);
 }
 
-.plate__foot {
+.spec {
+  margin: 1.1rem 0 0;
+  border-top: 1px solid var(--line);
+}
+
+.spec__row {
   display: grid;
-  gap: 0.9rem;
-  margin-top: 1.6rem;
-  padding-top: 1.1rem;
-  border-top: 1px solid color-mix(in srgb, var(--c) 18%, transparent);
+  grid-template-columns: 5.5rem 1fr;
+  gap: 1rem;
+  align-items: baseline;
+  padding: 0.48rem 0;
+  border-bottom: 1px solid var(--line-soft);
 }
 
-.plate__stack {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
+.spec__row dt {
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
+.spec__row dd {
   margin: 0;
-  padding: 0;
-  list-style: none;
+  font-size: var(--t-12);
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--ink-1);
 }
 
-.plate__stack li {
-  padding: 0.25rem 0.5rem;
-  border: 1px solid rgb(139 163 176 / 0.2);
-  font-size: 0.5rem;
-  letter-spacing: 0.18em;
-  color: var(--bone-dim);
-}
-
-.plate__links {
+.spec__links {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  gap: 1.1rem;
+  gap: 1rem;
 }
 
-.plate__links a {
+.spec__links a {
   display: inline-flex;
   align-items: center;
   gap: 0.3rem;
-  min-height: 24px;
-  font-family: var(--mono);
-  font-size: var(--t-12);
-  letter-spacing: 0.1em;
-  color: var(--c);
+  min-height: 22px;
+  color: var(--ink-0);
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--c) 40%, transparent);
-  transition: border-color var(--fast) var(--out), opacity var(--fast) var(--out);
+  border-bottom: 1px solid rgb(242 245 247 / 0.3);
+  transition: border-color var(--fast) var(--out), color var(--fast) var(--out);
 }
 
-.plate__links a:hover {
-  border-bottom-color: var(--c);
+.spec__links a:hover {
+  color: var(--biolum);
+  border-bottom-color: var(--biolum);
 }
 
-.plate__links a svg {
+.spec__links a svg {
   width: 10px;
   height: 10px;
   transition: translate var(--fast) var(--out);
 }
 
-.plate__links a:hover svg {
+.spec__links a:hover svg {
   translate: 1px -1px;
-}
-
-.plate__meta {
-  margin-left: auto;
-  font-size: 0.5rem;
-  letter-spacing: 0.18em;
-  color: var(--bone-faint);
 }
 
 /* ---------- the floor ---------- */
 
 .floor {
   position: absolute;
-  left: 50%;
-  translate: -50% calc(-50% + 26px);
-  width: min(38rem, calc(100vw - var(--gutter) * 2));
-  text-align: center;
+  left: var(--hero-inset);
+  translate: 0 calc(-50% + 26px);
+  width: min(58rem, calc(100vw - var(--hero-inset) - 5rem));
+}
+
+/*
+ * Wide enough, and the closing spread runs as two columns. Stacked it is tall enough
+ * to collide with the depth gauge in the bottom corner.
+ */
+@media (min-width: 900px) {
+  .floor {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 21rem);
+    gap: clamp(2rem, 5vw, 4.5rem);
+    align-items: start;
+  }
+  .floor__index {
+    margin-top: 0.5rem;
+  }
 }
 
 .floor.is-lit {
-  translate: -50% -50%;
+  translate: 0 -50%;
 }
 
 .floor__depth {
@@ -359,25 +355,25 @@
 }
 
 .floor__head {
-  margin: 1rem 0 0;
+  margin: 0.7rem 0 0;
   font-family: var(--display);
-  font-size: var(--t-96);
+  font-size: var(--t-hero);
   font-weight: 500;
   line-height: 0.95;
   letter-spacing: -0.02em;
 }
 
 .floor__body {
-  margin: 1.2rem auto 0;
-  max-width: 28rem;
+  margin: 1.2rem 0 0;
+  max-width: 30rem;
   font-size: var(--t-16);
   font-weight: 300;
-  color: var(--bone-dim);
+  color: var(--ink-2);
 }
 
 .floor__cta {
   display: inline-block;
-  margin-top: 1.8rem;
+  margin-top: 1.3rem;
   padding-bottom: 0.2rem;
   border-bottom: 1px solid rgb(95 251 241 / 0.45);
   font-family: var(--mono);
@@ -394,8 +390,7 @@
 
 .floor__index {
   display: grid;
-  gap: 0.1rem;
-  margin: 3rem 0 0;
+  margin: 1.9rem 0 0;
   padding: 0;
   list-style: none;
   text-align: left;
@@ -406,20 +401,20 @@
   align-items: center;
   gap: 0.75rem;
   width: 100%;
-  min-height: 34px;
-  padding: 0.3rem 0.4rem;
+  min-height: 27px;
+  padding: 0.18rem 0.4rem;
   border: 0;
   background: none;
   font-family: var(--mono);
   font-size: var(--t-12);
   letter-spacing: 0.12em;
-  color: var(--bone-dim);
+  color: var(--ink-2);
   cursor: pointer;
   transition: color var(--fast) var(--out), background var(--fast) var(--out);
 }
 
 .floor__index button:hover {
-  color: var(--bone);
+  color: var(--ink-0);
   background: rgb(255 255 255 / 0.03);
 }
 
@@ -440,7 +435,7 @@
   height: 1px;
   background: repeating-linear-gradient(
     90deg,
-    rgb(139 163 176 / 0.3) 0 1px,
+    rgb(185 192 196 / 0.3) 0 1px,
     transparent 1px 5px
   );
 }
@@ -448,31 +443,22 @@
 .floor__index-depth {
   font-variant-numeric: tabular-nums;
   font-size: 0.5625rem;
-  color: var(--bone-faint);
+  color: var(--ink-2);
 }
 
-.floor__surface {
-  margin-top: 2.6rem;
-  min-height: 44px;
-  padding: 0 1.2rem;
-  border: 1px solid rgb(139 163 176 / 0.28);
-  background: none;
-  color: var(--bone-dim);
-  cursor: pointer;
-  transition: border-color var(--base) var(--out), color var(--base) var(--out);
-}
-
-.floor__surface:hover {
-  border-color: var(--biolum);
-  color: var(--biolum);
+.floor__end {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1.1rem;
+  margin-top: 1.8rem;
 }
 
 .floor__keys {
-  margin-top: 1.4rem;
+  margin: 0;
   font-size: 0.625rem;
-  letter-spacing: 0.14em;
-  color: var(--bone-dim);
-  opacity: 0.75;
+  letter-spacing: 0.12em;
+  color: var(--ink-2);
 }
 
 /* ---------- narrow ---------- */

@@ -74,7 +74,7 @@ for (const [vpName, vp] of Object.entries(VIEWPORTS)) {
       await page.screenshot({ path: `${OUT}/${vpName}-${name}.png` })
       // Go under.
       const clicked = await page.evaluate(() => {
-        const btns = [...document.querySelectorAll('.gate__btn')]
+        const btns = [...document.querySelectorAll('.gate .btn')]
         const quiet = btns.find((b) => b.textContent?.includes('silence'))
         if (!quiet) return false
         quiet.click()

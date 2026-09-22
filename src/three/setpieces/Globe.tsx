@@ -73,7 +73,7 @@ export function Globe({ project, prox }: PieceProps) {
         <points geometry={pinGeo}>
           <pointsMaterial
             ref={pinsMat}
-            color={new THREE.Color(project.color).multiplyScalar(2.2)}
+            color={new THREE.Color(project.color).multiplyScalar(1.5)}
             size={0.055}
             sizeAttenuation
             transparent

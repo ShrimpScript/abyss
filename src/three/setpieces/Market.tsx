@@ -29,7 +29,7 @@ export function Market({ project, prox }: PieceProps) {
   }, [])
 
   const mats = useMemo(
-    () => ({ hull: hullMaterial('#3a2a18'), glow: glowMaterial(project.color, 2.6) }),
+    () => ({ hull: hullMaterial('#3a2a18'), glow: glowMaterial(project.color, 1.7) }),
     [project.color],
   )
 

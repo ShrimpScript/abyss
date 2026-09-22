@@ -1,10 +1,23 @@
 :root {
-  /* Water. These are the anchors; the live colour is driven from depth in JS. */
+  /* Water. Anchors only; the live colour is driven from depth in JS. */
   --abyss: #01040a;
   --hadal: #000204;
-  --bone: #e8eef2;
-  --bone-dim: #8ba3b0;
-  --bone-faint: #4c6270;
+
+  /*
+   * Text ramp. Measured off Dovetail's hero, which runs pure neutral greys
+   * (#ffffff / #ababab / #808080, zero hue) on near-black. The previous ramp
+   * carried a +37 teal cast, which is what made body copy look muddy against
+   * the water. These keep a whisper of cool and nothing more.
+   */
+  --ink-0: #f2f5f7; /* headlines, 18.7:1 on abyss */
+  --ink-1: #b9c0c4; /* body copy, 11.1:1 */
+  --ink-2: #8b9296; /* labels and metadata, 6.5:1 */
+  --ink-3: #61686c; /* rules and decoration only, never running text */
+
+  --line: rgb(185 192 196 / 0.14);
+  --line-soft: rgb(185 192 196 / 0.07);
+
+  /* Bioluminescence. Accents mark things; they never carry running text. */
   --biolum: #5ffbf1;
   --biolum-deep: #4a7cff;
   --dragonfish: #ff2d55;
@@ -14,6 +27,7 @@
   --body: 'Newsreader', 'Iowan Old Style', Georgia, serif;
   --mono: 'IBM Plex Mono', 'SFMono-Regular', ui-monospace, monospace;
 
+  --t-11: 0.6875rem;
   --t-12: 0.75rem;
   --t-14: 0.875rem;
   --t-16: 1rem;
@@ -21,7 +35,7 @@
   --t-24: 1.5rem;
   --t-34: clamp(1.6rem, 2.4vw, 2.125rem);
   --t-56: clamp(2.4rem, 5vw, 3.5rem);
-  --t-96: clamp(3.4rem, 9vw, 6rem);
+  --t-hero: clamp(1.95rem, 8.2vw, 5.25rem);
 
   /* Motion */
   --fast: 140ms;
@@ -39,6 +53,8 @@
   --beam: calc(190px + var(--boost) * 150px);
 
   --gutter: clamp(1.25rem, 4vw, 4rem);
+  /* Dovetail sets its hero 8.4% in from the edge. Measured, not guessed. */
+  --hero-inset: clamp(1.5rem, 8.4vw, 9.5rem);
 }
 
 @media (prefers-reduced-motion: reduce) {

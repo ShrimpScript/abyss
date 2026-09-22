@@ -23,7 +23,7 @@ export const ZONES: Zone[] = [
     latin: 'Interfacies',
     from: 0,
     to: 12,
-    water: [0.13, 0.36, 0.38],
+    water: [0.085, 0.4, 0.44],
     note: 'Air above, water below.',
   },
   {
@@ -32,7 +32,7 @@ export const ZONES: Zone[] = [
     latin: 'Epipelagic',
     from: 12,
     to: 200,
-    water: [0.04, 0.24, 0.29],
+    water: [0.03, 0.235, 0.3],
     note: 'Everything that photosynthesises lives here.',
   },
   {

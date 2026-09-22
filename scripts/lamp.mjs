@@ -18,15 +18,27 @@ await wait(2200)
 console.log('fine pointer seen by page:', await page.evaluate(
   () => matchMedia('(hover: hover) and (pointer: fine)').matches))
 
-await page.mouse.move(605, 562)
-await page.mouse.click(834, 562)   // descend in silence
+// Find the entry button rather than assuming where it sits — the hero layout moves.
+const btn = await page.evaluate(() => {
+  const b = [...document.querySelectorAll('.gate .btn')].find((x) =>
+    x.textContent.includes('silence'),
+  )
+  if (!b) return null
+  const r = b.getBoundingClientRect()
+  return { x: r.left + r.width / 2, y: r.top + r.height / 2 }
+})
+if (!btn) throw new Error('no silent entry button on the gate')
+await page.mouse.move(btn.x - 80, btn.y - 40)
+await page.mouse.move(btn.x, btn.y, { steps: 8 })
+await page.mouse.click(btn.x, btn.y)
 await wait(2400)
-await page.evaluate(() => { window.location.hash = 'd=7300' })
-await wait(2800)
 
-// Park the pointer far from the plate.
-await page.mouse.move(1380, 860)
-await wait(1200)
+// Park the beam in a far corner BEFORE travelling, or the plate is revealed in passing
+// on its way up through the pointer.
+await page.mouse.move(1400, 870, { steps: 10 })
+await wait(400)
+await page.evaluate(() => { window.location.hash = 'd=7300' })
+await wait(3000)
 const before = await page.evaluate(() => ({
   lit: document.querySelectorAll('.plate.is-lit').length,
   porthole: document.querySelector('#porthole')?.classList.contains('is-lit'),

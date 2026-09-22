@@ -11,7 +11,7 @@ page.on('pageerror', e => console.log('PAGEERROR', e.message, e.stack?.split('\n
 await page.goto('http://localhost:4180/?probe', { waitUntil: 'networkidle2' })
 await wait(2200)
 console.log('GATE ', await page.evaluate(() => window.__abyss))
-await page.evaluate(() => [...document.querySelectorAll('.gate__btn')].find(b=>b.textContent.includes('silence')).click())
+await page.evaluate(() => [...document.querySelectorAll('.gate .btn')].find(b=>b.textContent.includes('silence')).click())
 await wait(2200)
 console.log('ENTER', await page.evaluate(() => window.__abyss))
 await page.evaluate(() => { window.location.hash = 'd=340' })

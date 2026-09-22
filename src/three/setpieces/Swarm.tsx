@@ -113,7 +113,7 @@ export function Swarm({ project, prox }: PieceProps) {
   })
 
   const mats = useMemo(
-    () => ({ hull: hullMaterial('#3a2436'), glow: glowMaterial(project.color, 3.0) }),
+    () => ({ hull: hullMaterial('#3a2436'), glow: glowMaterial(project.color, 1.7) }),
     [project.color],
   )
 

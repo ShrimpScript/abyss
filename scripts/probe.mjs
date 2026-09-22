@@ -21,7 +21,7 @@ console.log('BEFORE', await page.evaluate(() => ({
   colH: document.querySelector('.column')?.getBoundingClientRect().height,
 })))
 
-await page.evaluate(() => [...document.querySelectorAll('.gate__btn')].find(b=>b.textContent.includes('silence')).click())
+await page.evaluate(() => [...document.querySelectorAll('.gate .btn')].find(b=>b.textContent.includes('silence')).click())
 await wait(2500)
 console.log('AFTER ENTER', await page.evaluate(() => ({
   phase: document.body.dataset.phase,

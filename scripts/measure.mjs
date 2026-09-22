@@ -4,12 +4,12 @@ const browser = await puppeteer.launch({
   executablePath: '/usr/bin/google-chrome-stable', headless: 'new',
   args: ['--no-sandbox','--disable-gpu-sandbox','--use-gl=angle','--use-angle=swiftshader','--enable-unsafe-swiftshader','--hide-scrollbars'],
 })
-for (const vp of [{width:390,height:844,n:'phone'},{width:768,height:1024,n:'tablet'}]) {
+for (const vp of [{width:1440,height:900,n:'desktop'},{width:1600,height:760,n:'short'},{width:390,height:844,n:'phone'}]) {
   const page = await browser.newPage()
   await page.setViewport(vp)
   await page.goto('http://localhost:4180/?probe', { waitUntil: 'networkidle2' })
   await wait(2000)
-  await page.evaluate(() => [...document.querySelectorAll('.gate__btn')].find(b=>b.textContent.includes('silence')).click())
+  await page.evaluate(() => [...document.querySelectorAll('.gate .btn')].find(b=>b.textContent.includes('silence')).click())
   await wait(2200)
   await page.evaluate(() => { window.location.hash = 'd=2700' })
   await wait(2400)

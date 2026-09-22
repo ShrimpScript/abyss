@@ -22,7 +22,7 @@ export function Reactor({ project, prox }: PieceProps) {
   const mats = useMemo(
     () => ({
       hull: hullMaterial('#2e1a22'),
-      glow: glowMaterial(project.color, 2.1),
+      glow: glowMaterial(project.color, 1.25),
     }),
     [project.color],
   )

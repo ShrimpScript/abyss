@@ -22,7 +22,7 @@ export function Atlas({ project, prox }: PieceProps) {
   const dummy = useMemo(() => new THREE.Object3D(), [])
   const v = useMemo(() => new THREE.Vector3(), [])
 
-  const glow = useMemo(() => glowMaterial(project.color, 3.2), [project.color])
+  const glow = useMemo(() => glowMaterial(project.color, 1.8), [project.color])
 
   useFrame(() => {
     const t = frame.time

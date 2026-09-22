@@ -16,22 +16,29 @@ Decisions only — no options, no "consider".*
 - Reference language taken: 19th-century naturalist expedition plates (engraved display
   serif, specimen numbering, latin-style zone labels) crossed with modern submersible
   instrumentation (monospace telemetry, depth/pressure/temperature readouts).
+- Measured references (Mobbin, ADAPT mode, 2026-09-22): **Dovetail** for the hero
+  composition and the neutral grey ramp; **In Common With** for specification rows;
+  **Dovetail's** hero grid for the hairline blueprint overlay. See the confidence audit
+  in MEMORY.md for which numbers are measured and which are inferred.
 - Signature element: below 1,000 m the page is genuinely dark and the cursor is the
   submersible lamp. Content only exists where the visitor points it.
 
 ## Color
-| Token | Hex | Role |
-|---|---|---|
-| `--abyss` | #01040a | page background at depth |
-| `--surface-water` | #2ad4c3 | epipelagic water |
-| `--twilight-water` | #0a4b68 | mesopelagic water |
-| `--midnight-water` | #04121f | bathypelagic water |
-| `--hadal-water` | #000204 | hadal water |
-| `--bone` | #e8eef2 | primary text |
-| `--bone-dim` | #7d929e | secondary text, telemetry labels |
-| `--biolum` | #5ffbf1 | default bioluminescence, links, lamp core |
-| `--biolum-deep` | #4a7cff | deep accent |
-| `--dragonfish` | #ff2d55 | hadal-only red (the one warm colour, used sparingly) |
+| Token | Hex | Contrast on abyss | Role |
+|---|---|---|---|
+| `--abyss` | #01040a | — | page background at depth |
+| `--ink-0` | #f2f5f7 | 18.7:1 | headlines, taglines, link text |
+| `--ink-1` | #b9c0c4 | 11.1:1 | body copy |
+| `--ink-2` | #8b9296 | 6.5:1 | labels, telemetry, metadata |
+| `--ink-3` | #61686c | 3.6:1 | rules and decoration only, never text |
+| `--biolum` | #5ffbf1 | — | lamp core, link hover |
+| `--biolum-deep` | #4a7cff | — | deep accent |
+| `--dragonfish` | #ff2d55 | — | hadal red, used sparingly |
+- The ink ramp is near-neutral by design. Dovetail's hero was measured at #ffffff /
+  #ababab / #808080 with zero hue; an earlier teal-cast ramp (+37 blue-minus-red) was
+  what made body copy read muddy against the water.
+- **Accent colour never carries running text.** A project's colour appears on its
+  specimen numeral, its sonar blip and its structure in the water. Nowhere else.
 - Water colour is driven by depth, not by a theme toggle. Red wavelength is removed first,
   as it is in real water; by 1,000 m only blue-green remains.
 - Each project carries its own bioluminescence hue so the sonar rail is readable.
@@ -81,6 +88,11 @@ Decisions only — no options, no "consider".*
 - DO keep a way out at all times: the sonar rail warps to any project, typing a project
   name warps to it, and "Surface" returns to 0 m.
 - DON'T use stock photography, emoji, or icon-font logos.
+- DON'T use bordered chips or pills for metadata. Specification rows with hairline
+  separators, label left and value right.
+- DON'T tint body text with a project's accent colour.
+- DON'T centre a stack of headline, paragraph and two buttons. That is the shape every
+  generated hero takes.
 - DON'T put a fake terminal, fake "Connected" status, or a pulsing "live" dot anywhere.
 - DON'T autoplay audio. Sound is offered once at the gate and is off until accepted.
 - DON'T let the long scroll be the only navigation.
