@@ -29,32 +29,36 @@ export function Ragdoll({ project, prox }: PieceProps) {
   }, [])
 
   const mats = useMemo(
-    () => ({ hull: hullMaterial('#2c3a26'), glow: glowMaterial(project.color, 2.2) }),
+    () => ({ hull: hullMaterial('#2c3a26'), glow: glowMaterial(project.color, 1.55) }),
     [project.color],
   )
 
-  useFrame((_, rawDelta) => {
-    const dt = Math.min(rawDelta, 1 / 30)
+  useFrame(() => {
     const { pos, prev, dummy } = sim
     const t = frame.time
 
-    // Verlet integration with drag. Gravity is gentle — this is water, not air.
-    const drag = 0.986
-    const gravity = -1.15 * dt * dt * 60
+    // Verlet integration with heavy drag, because this is water rather than air.
+    // Gravity has to stay well above the lateral terms or the chain is dragged straight
+    // instead of hanging, which is the whole point of a ragdoll.
+    const DRAG = 0.985
+    const GRAVITY = -0.00092
+    const SWAY = 0.00022
+    const PUSH = 0.00017
+
     const sway = Math.sin(t * 0.7) * 0.9 + Math.sin(t * 1.63) * 0.35
     const push = frame.px * 2.4 * prox.value
 
     for (let i = 1; i < JOINTS; i++) {
       const p = pos[i]
       const q = prev[i]
-      const vx = (p.x - q.x) * drag
-      const vy = (p.y - q.y) * drag
-      const vz = (p.z - q.z) * drag
+      const vx = (p.x - q.x) * DRAG
+      const vy = (p.y - q.y) * DRAG
+      const vz = (p.z - q.z) * DRAG
       q.copy(p)
       const w = i / JOINTS
-      p.x += vx + (sway * 0.0016 + push * 0.0012) * w
-      p.y += vy + gravity * 0.0016
-      p.z += vz + Math.cos(t * 0.9 + i * 0.4) * 0.0009 * w
+      p.x += vx + (sway * SWAY + push * PUSH) * w
+      p.y += vy + GRAVITY
+      p.z += vz + Math.cos(t * 0.9 + i * 0.4) * 0.00012 * w
     }
 
     // Distance constraints, anchored at the first joint.
@@ -85,7 +89,7 @@ export function Ragdoll({ project, prox }: PieceProps) {
 
     for (let i = 0; i < JOINTS; i++) {
       dummy.position.copy(pos[i])
-      const s = 0.115 - i * 0.006
+      const s = 0.138 - i * 0.0092
       dummy.scale.setScalar(s)
       dummy.rotation.set(0, t * 0.4, 0)
       dummy.updateMatrix()
