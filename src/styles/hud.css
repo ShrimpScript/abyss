@@ -1,0 +1,255 @@
+.hud {
+  position: fixed;
+  inset: 0;
+  z-index: 6;
+  pointer-events: none;
+}
+
+.hud button {
+  pointer-events: auto;
+}
+
+/* ---------- top bar ---------- */
+
+.hud__top {
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: var(--gutter);
+}
+
+.hud__mark {
+  display: grid;
+  gap: 0.2rem;
+  justify-items: start;
+  padding: 0.25rem 0;
+  border: 0;
+  background: none;
+  color: var(--bone);
+  font-family: var(--display);
+  font-size: var(--t-19);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  line-height: 1;
+  cursor: pointer;
+  transition: opacity var(--base) var(--out);
+}
+
+.hud__mark:hover {
+  opacity: 0.72;
+}
+
+.hud__mark-sub {
+  font-size: 0.625rem;
+  letter-spacing: 0.22em;
+  color: var(--bone-faint);
+}
+
+.hud__sound {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  min-height: 44px;
+  padding: 0 0.75rem;
+  border: 1px solid rgb(139 163 176 / 0.22);
+  border-radius: 2px;
+  background: rgb(1 8 14 / 0.4);
+  backdrop-filter: blur(8px);
+  color: var(--bone-dim);
+  cursor: pointer;
+  transition: border-color var(--base) var(--out), color var(--base) var(--out);
+}
+
+.hud__sound:hover {
+  border-color: rgb(95 251 241 / 0.5);
+  color: var(--bone);
+}
+
+.hud__wave {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 12px;
+}
+
+.hud__wave i {
+  width: 2px;
+  height: 3px;
+  background: currentColor;
+  transition: height var(--base) var(--out);
+}
+
+.hud__wave.is-on i {
+  animation: wave 900ms ease-in-out infinite;
+}
+
+.hud__wave.is-on i:nth-child(2) { animation-delay: 140ms; }
+.hud__wave.is-on i:nth-child(3) { animation-delay: 280ms; }
+.hud__wave.is-on i:nth-child(4) { animation-delay: 420ms; }
+
+@keyframes wave {
+  0%, 100% { height: 3px; }
+  50% { height: 12px; }
+}
+
+/* ---------- zone, on the left edge ---------- */
+
+.hud__zone {
+  position: absolute;
+  left: var(--gutter);
+  top: 50%;
+  translate: 0 -50%;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  writing-mode: vertical-rl;
+  animation: zone-in var(--zone) var(--out) backwards;
+}
+
+@keyframes zone-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0);
+  }
+}
+
+.hud__zone-name {
+  font-family: var(--display);
+  font-size: var(--t-24);
+  font-weight: 400;
+  color: var(--bone);
+  opacity: 0.86;
+}
+
+.hud__zone-latin {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--bone-faint);
+}
+
+/* ---------- depth gauge ---------- */
+
+.hud__gauge {
+  position: absolute;
+  left: var(--gutter);
+  bottom: var(--gutter);
+  display: grid;
+  gap: 0.55rem;
+  min-width: 13rem;
+}
+
+.hud__depth {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-family: var(--mono);
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+.hud__depth-value {
+  font-size: clamp(2.2rem, 5vw, 3.1rem);
+  color: var(--bone);
+  letter-spacing: -0.02em;
+}
+
+.hud__depth-unit {
+  font-size: var(--t-14);
+  color: var(--bone-faint);
+  letter-spacing: 0.1em;
+}
+
+.hud__bar {
+  position: relative;
+  height: 1px;
+  background: rgb(139 163 176 / 0.2);
+  overflow: hidden;
+}
+
+.hud__bar-fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left center;
+  transform: scaleX(0);
+  background: linear-gradient(90deg, var(--biolum), var(--biolum-deep));
+}
+
+.hud__readouts {
+  display: flex;
+  gap: 1.5rem;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.hud__readouts div {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.hud__readouts dt {
+  font-size: 0.5625rem;
+  letter-spacing: 0.22em;
+  color: var(--bone-faint);
+}
+
+.hud__readouts dd {
+  margin: 0;
+  font-size: var(--t-12);
+  letter-spacing: 0.08em;
+  color: var(--bone-dim);
+  text-transform: none;
+}
+
+/* ---------- typed warp buffer ---------- */
+
+.hud__typed {
+  position: absolute;
+  left: 50%;
+  bottom: var(--gutter);
+  translate: -50% 0;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid rgb(95 251 241 / 0.3);
+  background: rgb(1 8 14 / 0.7);
+  backdrop-filter: blur(10px);
+  color: var(--biolum);
+  letter-spacing: 0.24em;
+}
+
+.hud__typed-caret {
+  opacity: 0.5;
+}
+
+@media (max-width: 860px) {
+  /* Horizontal, and up under the top bar, so the plate owns the middle of the screen. */
+  .hud__zone {
+    writing-mode: horizontal-tb;
+    left: var(--gutter);
+    top: calc(var(--gutter) + 3.6rem);
+    bottom: auto;
+    translate: 0;
+    gap: 0.6rem;
+    align-items: baseline;
+  }
+  .hud__zone-name {
+    font-size: var(--t-19);
+  }
+  .hud__gauge {
+    min-width: 0;
+  }
+  .hud__readouts {
+    gap: 1.1rem;
+  }
+}

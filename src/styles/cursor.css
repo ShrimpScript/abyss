@@ -1,0 +1,81 @@
+@media (hover: hover) and (pointer: fine) {
+  body {
+    cursor: none;
+  }
+  a,
+  button {
+    cursor: none;
+  }
+}
+
+.cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
+  pointer-events: none;
+  translate: calc(var(--mx) - 50%) calc(var(--my) - 50%);
+  width: 0;
+  height: 0;
+  color: var(--biolum);
+}
+
+.cursor__ring,
+.cursor__dot,
+.cursor__tick {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -50%;
+}
+
+.cursor__ring {
+  width: 34px;
+  height: 34px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  opacity: 0.55;
+  scale: calc(1 + var(--boost) * 0.5);
+  transition: scale 120ms var(--out);
+}
+
+.cursor__dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 12px 3px currentColor;
+}
+
+.cursor__tick {
+  width: 1px;
+  height: 7px;
+  background: currentColor;
+  opacity: 0.8;
+}
+
+.cursor__tick--n { translate: -50% calc(-50% - 24px); }
+.cursor__tick--s { translate: -50% calc(-50% + 24px); }
+.cursor__tick--e { translate: calc(-50% + 24px) -50%; width: 7px; height: 1px; }
+.cursor__tick--w { translate: calc(-50% - 24px) -50%; width: 7px; height: 1px; }
+
+/* The reticle opens up over anything that can be acted on. */
+body:has(a:hover, button:hover) .cursor__ring {
+  scale: 1.7;
+  opacity: 0.95;
+}
+
+/*
+ * People who ask for less motion get their own cursor back. A custom reticle that
+ * chases the pointer is exactly the kind of thing that setting is asking us to stop.
+ */
+@media (prefers-reduced-motion: reduce) {
+  body,
+  a,
+  button {
+    cursor: auto;
+  }
+  .cursor {
+    display: none;
+  }
+}

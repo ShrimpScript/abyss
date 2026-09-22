@@ -1,0 +1,48 @@
+:root {
+  /* Water. These are the anchors; the live colour is driven from depth in JS. */
+  --abyss: #01040a;
+  --hadal: #000204;
+  --bone: #e8eef2;
+  --bone-dim: #8ba3b0;
+  --bone-faint: #4c6270;
+  --biolum: #5ffbf1;
+  --biolum-deep: #4a7cff;
+  --dragonfish: #ff2d55;
+
+  /* Type */
+  --display: 'Bodoni Moda', 'Didot', 'Bodoni MT', Georgia, serif;
+  --body: 'Newsreader', 'Iowan Old Style', Georgia, serif;
+  --mono: 'IBM Plex Mono', 'SFMono-Regular', ui-monospace, monospace;
+
+  --t-12: 0.75rem;
+  --t-14: 0.875rem;
+  --t-16: 1rem;
+  --t-19: 1.1875rem;
+  --t-24: 1.5rem;
+  --t-34: clamp(1.6rem, 2.4vw, 2.125rem);
+  --t-56: clamp(2.4rem, 5vw, 3.5rem);
+  --t-96: clamp(3.4rem, 9vw, 6rem);
+
+  /* Motion */
+  --fast: 140ms;
+  --base: 260ms;
+  --slow: 700ms;
+  --zone: 1200ms;
+  --out: cubic-bezier(0.16, 1, 0.3, 1);
+  --in: cubic-bezier(0.7, 0, 0.84, 0);
+
+  /* Driven every frame from the descent clock. */
+  --mx: 50vw;
+  --my: 50vh;
+  --lamp: 0;
+  --boost: 0;
+  --beam: calc(190px + var(--boost) * 150px);
+
+  --gutter: clamp(1.25rem, 4vw, 4rem);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --beam: 78vmax;
+  }
+}
