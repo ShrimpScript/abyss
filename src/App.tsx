@@ -18,7 +18,10 @@ function detectQuality(): 'low' | 'high' {
   if (typeof window === 'undefined') return 'low'
   const mem = (navigator as { deviceMemory?: number }).deviceMemory
   const small = window.innerWidth < 820
-  return small || (mem !== undefined && mem <= 4) ? 'low' : 'high'
+  // Someone on a metered connection should not be made to pay for the full
+  // particle count just because their screen is large.
+  const thrifty = window.matchMedia('(prefers-reduced-data: reduce)').matches
+  return small || thrifty || (mem !== undefined && mem <= 4) ? 'low' : 'high'
 }
 
 /** Screenshot tooling needs the drawing buffer kept; nothing else does. */
