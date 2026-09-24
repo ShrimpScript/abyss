@@ -7,6 +7,7 @@ import { SonarRail } from './ui/SonarRail'
 import { Column } from './ui/Column'
 import { Cursor } from './ui/Cursor'
 import { AudioDriver } from './ui/AudioDriver'
+import { Announcer } from './ui/Announcer'
 import { SkipLink } from './ui/SkipLink'
 import { applyHash, getLenis, initDescent, teardownDescent } from './lib/descent'
 import { useStore } from './lib/store'
@@ -71,6 +72,7 @@ export default function App() {
       <Hud />
       <SonarRail />
       <AudioDriver />
+      <Announcer />
       <Cursor />
       <Gate />
     </>
