@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question about how something works
+    url: https://github.com/ShrimpScript/abyss/discussions/categories/q-a
+    about: Ask in Q&A so the answer stays searchable for the next person.
+  - name: See it running
+    url: https://shrimpscript.vercel.app
+    about: The live descent.
