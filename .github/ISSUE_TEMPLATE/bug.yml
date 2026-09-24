@@ -1,0 +1,36 @@
+name: Bug report
+description: Something renders wrong, performs badly, or does not work
+labels: [bug]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+  - type: input
+    id: depth
+    attributes:
+      label: Where in the descent
+      description: The depth readout, or the project name, when it happened.
+      placeholder: 3,950 m
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and OS
+      placeholder: Firefox 142 on Linux
+    validations:
+      required: true
+  - type: input
+    id: gpu
+    attributes:
+      label: GPU
+      description: From about:support on Firefox, or chrome://gpu on Chrome.
+  - type: checkboxes
+    id: prefs
+    attributes:
+      label: Anything relevant switched on
+      options:
+        - label: Reduced motion
+        - label: Touch device, or no mouse
