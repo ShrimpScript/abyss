@@ -62,3 +62,17 @@
     --beam: 78vmax;
   }
 }
+
+/*
+ * Someone asking the system for more contrast is telling us the comfortable step is not
+ * enough. Secondary text moves up to the body step and the hairlines become visible.
+ */
+@media (prefers-contrast: more) {
+  :root {
+    --ink-1: #e2e7ea;
+    --ink-2: #b9c0c4;
+    --ink-3: #8b9296;
+    --line: rgb(214 222 226 / 0.42);
+    --line-soft: rgb(214 222 226 / 0.24);
+  }
+}
