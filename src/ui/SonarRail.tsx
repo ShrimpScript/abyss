@@ -24,9 +24,14 @@ export function SonarRail() {
 
   if (phase === 'gate') return null
 
-  const jump = (depth: number) => {
+  const jump = (id: string, depth: number) => {
     if (sound) tick(1180)
     warpTo(depth)
+    // Follow the warp with focus, or the next Tab carries on down the rail
+    // instead of entering the plate that was just opened.
+    window.setTimeout(() => {
+      document.getElementById(id)?.focus({ preventScroll: true })
+    }, 1400)
   }
 
   return (
@@ -52,7 +57,7 @@ export function SonarRail() {
             style={
               { top: `${(p.depth / MAX_DEPTH) * 100}%`, '--c': p.color } as React.CSSProperties
             }
-            onClick={() => jump(p.depth)}
+            onClick={() => jump(p.id, p.depth)}
             aria-label={`${p.name}, ${formatDepth(p.depth)} metres`}
           >
             <i />
