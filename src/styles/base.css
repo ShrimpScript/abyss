@@ -184,3 +184,27 @@ body[data-phase='gate'] .beam {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Visible only once it has focus, which is the first thing Tab reaches. */
+.skip {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  z-index: 20;
+  translate: -50% -140%;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border: 1px solid var(--biolum);
+  border-radius: 0 0 3px 3px;
+  background: #02121a;
+  color: var(--ink-0);
+  font-family: var(--mono);
+  font-size: var(--t-12);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: translate var(--base) var(--out);
+}
+
+.skip:focus-visible {
+  translate: -50% 0;
+}
