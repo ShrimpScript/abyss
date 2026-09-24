@@ -34,5 +34,8 @@
     "vitest": "^3.2.7"
   },
   "license": "MIT",
-  "author": "ShrimpScript"
+  "author": "ShrimpScript",
+  "engines": {
+    "node": ">=20.19"
+  }
 }
